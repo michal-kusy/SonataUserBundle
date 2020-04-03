@@ -55,7 +55,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    public function getExportFields()
+    public function getExportFields(): array
     {
         // avoid security field to be exported
         return array_filter(parent::getExportFields(), static function ($v) {
