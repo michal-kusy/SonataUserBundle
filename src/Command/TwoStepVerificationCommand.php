@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Command;
 
-use FOS\UserBundle\Model\UserManagerInterface;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
 use Sonata\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -92,7 +92,7 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
                 'Not providing the $userManager argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
                 __CLASS__
             ), E_USER_DEPRECATED);
-            $manager = $this->getContainer()->get('fos_user.user_manager');
+            $manager = $this->getContainer()->get('sonata.user.user_manager');
             \assert($manager instanceof UserManagerInterface);
             $this->userManager = $manager;
         }
