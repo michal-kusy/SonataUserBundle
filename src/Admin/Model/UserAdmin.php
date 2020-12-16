@@ -27,6 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -38,7 +39,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    public function getFormBuilder()
+    public function getFormBuilder(): FormBuilderInterface
     {
         $this->formOptions['data_class'] = $this->getClass();
 
@@ -59,7 +60,7 @@ class UserAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    public function getExportFields()
+    protected function configureExportFields(): array
     {
         // avoid security field to be exported
         return array_filter(parent::getExportFields(), static function ($v) {

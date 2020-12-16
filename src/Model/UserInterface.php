@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\UserBundle\Model;
 
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface as AdvancedUserInterface;
 
 interface UserInterface extends AdvancedUserInterface, \Serializable
 {

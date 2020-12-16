@@ -16,7 +16,7 @@ namespace Sonata\UserBundle\Command;
 use Sonata\UserBundle\GoogleAuthenticator\Helper;
 use Sonata\UserBundle\Model\UserInterface;
 use Sonata\UserBundle\Model\UserManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -25,7 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * NEXT_MAJOR: stop extending ContainerAwareCommand.
  */
-class TwoStepVerificationCommand extends ContainerAwareCommand
+class TwoStepVerificationCommand extends Command
 {
     /**
      * @var ?Helper
@@ -73,28 +73,8 @@ class TwoStepVerificationCommand extends ContainerAwareCommand
      */
     public function execute(InputInterface $input, OutputInterface $output): void
     {
-        if (null === $this->helper && !$this->getContainer()->has('sonata.user.google.authenticator.provider')) {
-            throw new \RuntimeException('Two Step Verification process is not enabled');
-        }
-
         if (null === $this->helper) {
-            @trigger_error(sprintf(
-                'Not providing the $helper argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
-                __CLASS__
-            ), E_USER_DEPRECATED);
-            $helper = $this->getContainer()->get('sonata.user.google.authenticator.provider');
-            \assert($helper instanceof Helper);
-            $this->helper = $helper;
-        }
-
-        if (null === $this->userManager) {
-            @trigger_error(sprintf(
-                'Not providing the $userManager argument of "%s::__construct()" is deprecated since 4.3.0 and will no longer be possible in 5.0',
-                __CLASS__
-            ), E_USER_DEPRECATED);
-            $manager = $this->getContainer()->get('sonata.user.user_manager');
-            \assert($manager instanceof UserManagerInterface);
-            $this->userManager = $manager;
+            throw new \RuntimeException('Two Step Verification process is not enabled');
         }
 
         $user = $this->userManager->findUserByUsernameOrEmail($input->getArgument('username'));
