@@ -83,7 +83,8 @@ class EditableRolesBuilder
         });
 
         $isMaster = $this->authorizationChecker->isGranted(
-            $this->pool->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
+            'ROLE_SUPER_ADMIN'
+            //@deprecated $this->pool->getOption('role_super_admin', 'ROLE_SUPER_ADMIN')
         );
 
         // get roles from the service container
